@@ -1,31 +1,33 @@
-import UssdService from '../src/services/ussdService.js';
-import UssdController from '../src/controller/ussdController.js';
-import InputReader from '../src/utils/inputReader.js';
+// src/app.js
+import controller from '../src/controller/ussdController.js';
+import createInputReader from './utils/inputReader.js';
 
-const service = new UssdService();
-const controller = new UssdController(service);
+function onInput(line) {
+  const resp = controller.handleInput(line);
 
-const inputReader = new InputReader((input) => {
-  if (input.trim() === '#111#' && service.getCurrentMenu() === 'main') {
-    console.log(controller.getMenuMessage());
-  } else {
-    const result = controller.handleInput(input);
-    if (result.exit) {
-      console.log('Au revoir !');
-      inputReader.close();
-    } else if (result.error) {
-      console.log(result.error);
-      console.log(result.message);
-    } else {
-      console.log(result.message);
-    }
+  if (resp.exit) {
+    console.log('Au revoir !');
+    inputReader.close();
+    return;
   }
-  inputReader.prompt();
-});
 
-console.log('Tapez #111# pour démarrer la simulation USSD Mvola.');
-inputReader.prompt();
-;
-inputReader.prompt();
-;
+  if (resp.error) {
+    console.log(resp.error);
+  }
+
+  console.log(resp.message);
+  inputReader.prompt();
+}
+
+function onTimeout() {
+  // on utilise maintenant la méthode reset() du controller
+  controller.reset();
+  console.log(controller.getMenuMessage());
+  inputReader.prompt();
+}
+
+const inputReader = createInputReader(onInput, onTimeout);
+
+// lancement initial
+console.log(controller.getMenuMessage());
 inputReader.prompt();
