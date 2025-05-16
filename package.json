@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "eslint": "^8.2.0",
@@ -10,8 +11,8 @@
     "prettier": "^3.5.3"
   },
   "scripts": {
-    "lint": "eslint . --ext .js,.mjs,.cjs",
-    "lint:fix": "eslint . --ext .js,.mjs,.cjs --fix",
+    "lint": "eslint . --ext .js,.mjs,.cjs --config eslint.config.js",
+    "lint:fix": "eslint . --ext .js,.mjs,.cjs --fix --config eslint.config.js",
     "start": "node src/app.js"
   }
 }
