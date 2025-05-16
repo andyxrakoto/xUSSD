@@ -1,44 +1,23 @@
-import menus from '../models/menuModel.js';
+import menuModel from "../models/menuModel.js";
 
-class UssdController {
-  constructor(service) {
-    this.service = service;
-  }
+function displayMenu() {
+  console.log(menuModel.mainMenuText);
+}
 
-  getMenuMessage() {
-    const current = this.service.getCurrentMenu();
-    const menu = menus[current];
-    if (typeof menu.message === 'function') {
-      return menu.message(this.service.getState());
-    }
-    return menu.message;
-  }
-
-  handleInput(input) {
-    const current = this.service.getCurrentMenu();
-    const menu = menus[current];
-    input = input.trim();
-
-    if (menu.input) {
-      if (current === 'transfert') {
-        this.service.setBeneficiaire(input);
-        this.service.setCurrentMenu(menu.next);
-        return { nextMenu: this.service.getCurrentMenu(), message: this.getMenuMessage() };
-      }
-      if (current === 'montant') {
-        this.service.setMontant(input);
-        this.service.setCurrentMenu(menu.next);
-        return { nextMenu: this.service.getCurrentMenu(), message: this.getMenuMessage() };
-      }
-    } else if (menu.options[input]) {
-      this.service.setCurrentMenu(menu.options[input]);
-      if (this.service.getCurrentMenu() === 'exit') {
-        return { exit: true };
-      }
-      return { nextMenu: this.service.getCurrentMenu(), message: this.getMenuMessage() };
-    }
-    return { error: "Option invalide, veuillez réessayer.", message: this.getMenuMessage() };
+function handleInput(input) {
+  if (input === "1") {
+    console.log(menuModel.soldeText);
+  } else if (input === "2") {
+    console.log("Entrez le numéro du bénéficiaire:");
+  } else if (input === "3") {
+    console.log("Au revoir !");
+    process.exit(0);
+  } else {
+    console.log("Option invalide, veuillez réessayer.");
   }
 }
 
-export default UssdController;
+export default {
+  displayMenu,
+  handleInput,
+};

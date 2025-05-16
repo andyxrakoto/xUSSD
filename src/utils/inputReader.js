@@ -1,16 +1,16 @@
-import readline from 'readline';
+import readline from "readline";
 
 class InputReader {
   constructor(onInput) {
     this.rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
-      prompt: '> '
+      prompt: "> ",
     });
 
     this.onInput = onInput;
 
-    this.rl.on('line', (line) => {
+    this.rl.on("line", (line) => {
       this.onInput(line);
     });
   }
