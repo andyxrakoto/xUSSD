@@ -26,9 +26,7 @@ Achat d'offre
 
 Quitter
 
-yaml
-Copier
-Modifier
+
 
 ---
 
@@ -42,9 +40,7 @@ Voir mes 3 dernières transactions
 
 Retour
 
-yaml
-Copier
-Modifier
+
 
 - Affiche le solde actuel.
 - Affiche les 3 dernières transactions simulées.
@@ -73,9 +69,7 @@ Internet 200 Mo 2000 Ar
 
 Retour
 
-yaml
-Copier
-Modifier
+
 
 - Si l’utilisateur achète une offre, le **montant est déduit du solde**
 - Retourne ensuite au menu principal
